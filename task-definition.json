@@ -16,14 +16,14 @@
       ],
       "essential": true,
       "environment": [
-        [
+        
           { "name": "PGHOST", "valueFrom": "/url-shortener/PGHOST" },
           { "name": "PGPORT", "valueFrom": "/url-shortener/PGPORT" },
           { "name": "PGUSER", "valueFrom": "/url-shortener/PGUSER" },
           { "name": "PGPASSWORD", "valueFrom": "/url-shortener/PGPASSWORD" },
           { "name": "PGDATABASE", "valueFrom": "/url-shortener/PGDATABASE" },
           { "name": "PGSSLMODE", "valueFrom": "/url-shortener/PGSSLMODE" }
-        ]
+        
       ],
       "mountPoints": [],
       "volumesFrom": [],
