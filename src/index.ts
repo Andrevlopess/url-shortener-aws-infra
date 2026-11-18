@@ -1,4 +1,4 @@
-import express, {type Request, type Response} from "express";
+import express, { type Request, type Response } from "express";
 import { Pool } from "pg";
 import { customAlphabet } from "nanoid";
 
@@ -14,7 +14,11 @@ const pool = new Pool({
 
 const makeCode = customAlphabet("abcdefghijkmnpqrstuvwxyz23456789", 7);
 
-app.get("/health", (_req: Request, res: Response) => res.sendStatus(200)); // ALB health check
+app.get("/health", (_req: Request, res: Response) =>
+  res.status(200).send({
+    message: "Running on v1",
+  }),
+); // ALB health check
 
 app.post("/api/links", async (req: Request, res: Response) => {
   const { url } = req.body;
@@ -29,10 +33,7 @@ app.post("/api/links", async (req: Request, res: Response) => {
 });
 
 app.get("/:code", async (req: Request, res: Response) => {
-  const { rows } = await pool.query(
-    "SELECT id, target_url FROM links WHERE code = $1",
-    [req.params.code]
-  );
+  const { rows } = await pool.query("SELECT id, target_url FROM links WHERE code = $1", [req.params.code]);
   if (!rows[0]) return res.sendStatus(404);
 
   // fire-and-forget click logging so the redirect stays fast
